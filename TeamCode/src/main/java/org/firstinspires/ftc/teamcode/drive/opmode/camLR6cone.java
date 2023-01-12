@@ -57,9 +57,9 @@ import java.util.List;
  * is explained below.
  */
 
-@Autonomous(name = "CamLR", group = "Concept") //Concept: TensorFlow Object Detection Webcam
+@Autonomous(name = "camLR6cone", group = "Concept") //Concept: TensorFlow Object Detection Webcam
 
-public class CamLR extends LinearOpMode {
+public class camLR6cone extends LinearOpMode {
 
     private DigitalChannel touch;
     private DistanceSensor distanceSensor;
@@ -178,14 +178,14 @@ public class CamLR extends LinearOpMode {
                                 isOneDetected = true;
 
                                 zone = 700;
-                                forward = 1;
+                                forward = -24;
                                 telemetry.addData("Side Detected", "Side One");
                             } else {
                                 isOneDetected = false; //added
                             }
                             if (recognition.getLabel().equals("sideTwo")) {
                                 isTwoDetected = true;
-                                forward = 51;
+                                forward = 21;
                                 zone = 2;
 
                                 telemetry.addData("Side Detected", "Side Two");
@@ -194,7 +194,7 @@ public class CamLR extends LinearOpMode {
                             }
                             if (recognition.getLabel().equals("sideThree")) {
                                 isThreeDetected = true;
-                                forward = 28;
+                                forward = -1;
                                 zone = -700;
                                 telemetry.addData("Side Detected", "side Three");
                             } else {
@@ -213,45 +213,79 @@ public class CamLR extends LinearOpMode {
                 TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
 
                         .addTemporalMarker(() -> drive.close())
-                        .waitSeconds(.4)
+                        .waitSeconds(.1)
 
-                        .addTemporalMarker(() -> drive.lift(4300))
-                        .lineToLinearHeading(new Pose2d(-33,-16.5, Math.toRadians(45)))
+                        .addTemporalMarker(() -> drive.lift(3100))
+                        .lineToLinearHeading(new Pose2d(-32,-19.5, Math.toRadians(-45)))
                         //.strafeLeft(63.5)
                         //.addTemporalMarker(() -> drive.lifthold(200))
-                        .waitSeconds(.4)
-                        .forward(8.5)
-                        .waitSeconds(.3)
+                        .waitSeconds(.1)
+                        .forward(9)
                         .addTemporalMarker(() -> drive.open())
                         .waitSeconds(.1)
-                        .back(4.7)
+                        .back(6.7)
                         //.strafeRight(11)
                         //.lineToLinearHeading(new Pose2d(-25,0, Math.toRadians(0)))
                         .addTemporalMarker(() -> drive.lift(650))
-                        .lineToLinearHeading(new Pose2d(-60,-15, Math.toRadians(-180) + 1e-6))
+                        .lineToLinearHeading(new Pose2d(-60,-16, Math.toRadians(-180) + 1e-6))
                         .forward(5)
                         //.splineTo(new Vector2d(-72, -20), Math.toRadians(-180) + 1e-6)
                         .addTemporalMarker(()-> drive.close())
                         .waitSeconds(.1)
-                        .addTemporalMarker(() -> drive.lift(4250))
-                        .lineToLinearHeading(new Pose2d(-24.25,-17, Math.toRadians(90)))
-                        .forward(6)
-                        .waitSeconds(.4)
+                        .addTemporalMarker(() -> drive.lift(800))
+                        .back(2)
+                        .addTemporalMarker(() -> drive.lift(1800))
+                        .lineToLinearHeading(new Pose2d(-47,-17, Math.toRadians(-90)))
+                        .forward(8.5)
+                        .addTemporalMarker(() -> drive.open())
+                        //.waitSeconds(.1)
+                        .back(5.5)
+                        .addTemporalMarker(() -> drive.lift(650))
+                        .lineToLinearHeading(new Pose2d(-60,-16, Math.toRadians(-180) + 1e-6))
+                        .forward(5)
+                        //.splineTo(new Vector2d(-72, -20), Math.toRadians(-180) + 1e-6)
+                        .addTemporalMarker(()-> drive.close())
+                        .waitSeconds(.1)
+                        .addTemporalMarker(() -> drive.lift(750))
+                        .back(2)
+                        .addTemporalMarker(() -> drive.lift(1950))
+                        .lineToLinearHeading(new Pose2d(-47.5,-17, Math.toRadians(-90)))
+                        .forward(8.5)
+                        .addTemporalMarker(() -> drive.open())
+                        //.waitSeconds(.1)
+                        .back(5.5)
+                        .addTemporalMarker(() -> drive.lift(450))
+                        .lineToLinearHeading(new Pose2d(-60,-16, Math.toRadians(-180) + 1e-6))
+                        .forward(5)
+                        //.splineTo(new Vector2d(-72, -20), Math.toRadians(-180) + 1e-6)
+                        .addTemporalMarker(()-> drive.close())
+                        .waitSeconds(.1)
+                        .addTemporalMarker(() -> drive.lift(550))
+                        .back(2)
+                        .addTemporalMarker(() -> drive.lift(2050))
+                        .lineToLinearHeading(new Pose2d(-47.5,-16.5, Math.toRadians(-90)))
+                        .forward(8.75)
                         .addTemporalMarker(() -> drive.open())
                         .waitSeconds(.1)
                         .back(6)
-                        .addTemporalMarker(() -> drive.lift(470))
+                        .addTemporalMarker(() -> drive.lift(300))
+                        .lineToLinearHeading(new Pose2d(-36.5,-21, Math.toRadians(-185)))
+                        .back(forward)
+                        .waitSeconds(40)
+
+
+                        /*.addTemporalMarker(() -> drive.lift(470))
                         .lineToLinearHeading(new Pose2d(-60,-13, Math.toRadians(-180)))
                         .forward(6)
                         .addTemporalMarker(()-> drive.close())
                         .waitSeconds(.1)
-                        .addTemporalMarker(() -> drive.lift(4350))
-                        .lineToLinearHeading(new Pose2d(-25.5,-15.5, Math.toRadians(90)))
-                        .forward(7.5)
+                        .addTemporalMarker(() -> drive.lift(4250))
+                        .lineToLinearHeading(new Pose2d(-26,-15.5, Math.toRadians(90)))
+                        .forward(5.5)
                         .waitSeconds(.4)
                         .addTemporalMarker(() -> drive.open())
                         .waitSeconds(.1)
-                        .back(7.9)
+                        .back(5.9)
                         .addTemporalMarker(() -> drive.lift(400))
                         .lineToLinearHeading(new Pose2d(-63,-12, Math.toRadians(-180)))
                         .forward(7.4)
